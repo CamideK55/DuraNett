@@ -23,11 +23,11 @@ if __name__ == "__main__":
     district_num = sys.argv[1]
 
     # loading csv file to the program
-    batteries: list = load(f"../Huizen&Batterijen/district-{district_num}_houses.csv")
-    houses: list = load(f"../Huizen&Batterijen/district-{district_num}_batteries.csv")
+    batteries: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_houses.csv")
+    houses: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_batteries.csv")
 
-    # initialize grid 
-    grid = Grid(houses, batteries, district)
+    # initialize grid
+    grid = Grid(houses, batteries, int(district_num))
 
     # render output of grid
     output(grid)
