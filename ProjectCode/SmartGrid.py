@@ -8,7 +8,7 @@
 #  ***************************************************************************
 
 from classes import Battery, House, Grid
-from functions import load, output, visualize
+from functions import load, output, visualize, house_into_batteries
 import sys
 
 
@@ -23,11 +23,14 @@ if __name__ == "__main__":
     district_num = sys.argv[1]
 
     # loading csv file to the program
-    batteries: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_houses.csv")
-    houses: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_batteries.csv")
+    batteries: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_batteries.csv")
+    houses: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_houses.csv")
+
+    # place houses into batteries
+    house_into_batteries(batteries, houses)
 
     # initialize grid
-    grid = Grid(houses, batteries, int(district_num))
+    grid = Grid(batteries, int(district_num))
 
     # render output of grid
     output(grid)

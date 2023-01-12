@@ -13,20 +13,17 @@ import json
 
 class Battery:
     def __init__(self, x: int, y: int, capacity: float, unique_id: int) -> None:
-        """ post:  """
-        self.coordinates = tuple((x, y))
-        self.capacity = capacity
-        self.houses = []
-        self.id = unique_id
+        """ post:  """ 
+        # self.id = unique_id
 
         self.battery_dict = {
-            "location": f"{self.coordinates}",
-            "capacity": self.capacity,
-            "houses": self.houses
+            "location": f"{tuple((x, y))}",
+            "capacity": capacity,
+            "houses": [] # huizen moeten key worden in battery dict, value is lijst met huis-dicts
         }
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self.battery_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
     # def __repr__(self) -> str:
     #     return f"{self.battery_dict}"
@@ -35,19 +32,16 @@ class Battery:
 
 class House:
     def __init__(self, x: int, y: int, max_output: float, unique_id: int) -> None:
-        self.coordinates = tuple((x, y))
-        self.max_output = max_output
-        self.cables = []
-        self.id = unique_id
+        # self.id = unique_id - not sure if needed
 
         self.house_dict = {
-            "location": f"{self.coordinates}",
-            "output": self.max_output,
-            "cables": self.cables
+            "location": f"{tuple((x, y))}",
+            "output": max_output,
+            "cables": []
         }
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self.house_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
     # def __repr__(self) -> str:
     #     return f"{self.house_dict}"
@@ -56,29 +50,33 @@ class House:
 class Cable:
     def __init__(self) -> None:
         """ post: list of coordinates on which the cable runs """
-        self.coordinates = []
+        self.location = []
 
     def __repr__(self) -> str:
-        return f"{self.coordinates}"
+        return f"{self.location}"
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 class Grid:
-    def __init__(self, houses: list, batteries: list, district: int) -> None:
-        self.houses = houses
+    def __init__(self, batteries: list, district: int) -> None:
         self.batteries = batteries
         self.district_num = district
         self.costs_shared = 0
         
-        self.grid_dict = {
+        self.grid_dict_char = {
             "district": self.district_num,
             "costs-shared": self.costs_shared
         }
 
+        self.grid_list = [
+            self.grid_dict_char,
+            *self.batteries,
+        ]
+
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self.grid_list, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
     # def __repr__(self) -> str:
     #     return f"{self.grid_dict}"

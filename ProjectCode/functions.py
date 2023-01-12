@@ -53,16 +53,36 @@ def output(grid: Grid):
     # https://stackoverflow.com/questions/3768895/how-to-make-a-class-json-serializable
     
     print(grid.toJSON())
-    print(json.dumps(grid.grid_dict))
 
-    for i in range(len(grid.batteries)):
-        print(grid.batteries[i].toJSON())
-        print(json.dumps(grid.batteries[i]))
+    # grid_dict = {}
+    # battery_dict = {}
+    # houses_dict = {}
+
+    # print(json.dumps(grid.grid_dict_char))
+
+    # for i in range(len(grid.batteries)):
+        # print(grid.batteries[i].toJSON())
+        # print(json.dumps(grid.batteries[i]))
     
-    for i in range(len(grid.houses)):
-        print(grid.houses[i].toJSON())
-        print(json.dumps(grid.houses[i]))
+    # for i in range(len(grid.houses)):
+        # print(grid.houses[i].toJSON())
+        # print(json.dumps(grid.houses[i]))
 
+    # total_dict = {**grid_dict, **battery_dict, **houses_dict}
+
+    # convert to json file: link= https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
+#     with open("sample.json", "w") as outfile:
+#         outfile.write(json_object)
+    
+    # return json
 
 def visualize():
     pass
+
+def house_into_batteries(batteries: list, houses: list):
+    for battery in range(len(batteries)):
+        for index, house in enumerate(houses):
+            if index == 5:
+                break
+            batteries[battery].battery_dict["houses"].append(house)
+        # 30 houses per battery, implement for representation
