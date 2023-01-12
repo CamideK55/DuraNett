@@ -22,11 +22,11 @@ class Battery:
             "houses": [] # huizen moeten key worden in battery dict, value is lijst met huis-dicts
         }
 
-    def toJSON(self):
-        return json.dumps(self.battery_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    # def toJSON(self):
+    #     return json.dumps(self.battery_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
-    # def __repr__(self) -> str:
-    #     return f"{self.battery_dict}"
+    def __repr__(self) -> str:
+        return f"{self.battery_dict}"
         
 
 
@@ -40,8 +40,8 @@ class House:
             "cables": []
         }
 
-    def toJSON(self):
-        return json.dumps(self.house_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    # def toJSON(self):
+    #     return json.dumps(self.house_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
     # def __repr__(self) -> str:
     #     return f"{self.house_dict}"
@@ -55,8 +55,8 @@ class Cable:
     def __repr__(self) -> str:
         return f"{self.location}"
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    # def toJSON(self):
+    #     return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 class Grid:
@@ -72,11 +72,11 @@ class Grid:
 
         self.grid_list = [
             self.grid_dict_char,
-            *self.batteries,
+            *[battery.battery_dict for battery in self.batteries]
         ]
 
     def toJSON(self):
-        return json.dumps(self.grid_list, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self.grid_list, default=lambda o: o.__dict__, sort_keys=True, skipkeys= True, indent=4)
     
     # def __repr__(self) -> str:
     #     return f"{self.grid_dict}"

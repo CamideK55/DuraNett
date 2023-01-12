@@ -84,5 +84,5 @@ def house_into_batteries(batteries: list, houses: list):
         for index, house in enumerate(houses):
             if index == 5:
                 break
-            batteries[battery].battery_dict["houses"].append(house)
+            batteries[battery].battery_dict["houses"].append(house.house_dict)
         # 30 houses per battery, implement for representation
