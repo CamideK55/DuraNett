@@ -8,7 +8,8 @@
 #  ***************************************************************************
 
 from classes import Battery, House, Grid
-from functions import load, output, visualize, house_into_batteries
+from functions import load, output, house_into_batteries
+from visualisation.visualisation import visualize
 import sys
 
 
@@ -34,3 +35,6 @@ if __name__ == "__main__":
 
     # render output of grid
     output(grid)
+
+    # visualize output
+    visualize(grid)
