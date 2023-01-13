@@ -6,8 +6,9 @@
 #  *
 #  * implementation of all classes
 #  ***************************************************************************
+
 from __future__ import annotations
-import matplotlib
+# import matplotlib
 import json
 
 
@@ -19,15 +20,11 @@ class Battery:
         self.battery_dict = {
             "location": f"{tuple((x, y))}",
             "capacity": capacity,
-            "houses": [] # huizen moeten key worden in battery dict, value is lijst met huis-dicts
+            "houses": []
         }
-
-    # def toJSON(self):
-    #     return json.dumps(self.battery_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
     def __repr__(self) -> str:
         return f"{self.battery_dict}"
-        
 
 
 class House:
@@ -40,12 +37,6 @@ class House:
             "cables": []
         }
 
-    # def toJSON(self):
-    #     return json.dumps(self.house_dict, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-    
-    # def __repr__(self) -> str:
-    #     return f"{self.house_dict}"
-
 
 class Cable:
     def __init__(self) -> None:
@@ -54,9 +45,6 @@ class Cable:
 
     def __repr__(self) -> str:
         return f"{self.location}"
-
-    # def toJSON(self):
-    #     return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 class Grid:
@@ -77,6 +65,4 @@ class Grid:
 
     def toJSON(self):
         return json.dumps(self.grid_list, default=lambda o: o.__dict__, sort_keys=True, skipkeys= True, indent=4)
-    
-    # def __repr__(self) -> str:
-    #     return f"{self.grid_dict}"
+        

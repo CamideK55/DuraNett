@@ -54,22 +54,6 @@ def output(grid: Grid):
     
     print(grid.toJSON())
 
-    # grid_dict = {}
-    # battery_dict = {}
-    # houses_dict = {}
-
-    # print(json.dumps(grid.grid_dict_char))
-
-    # for i in range(len(grid.batteries)):
-        # print(grid.batteries[i].toJSON())
-        # print(json.dumps(grid.batteries[i]))
-    
-    # for i in range(len(grid.houses)):
-        # print(grid.houses[i].toJSON())
-        # print(json.dumps(grid.houses[i]))
-
-    # total_dict = {**grid_dict, **battery_dict, **houses_dict}
-
     # convert to json file: link= https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
 #     with open("sample.json", "w") as outfile:
 #         outfile.write(json_object)

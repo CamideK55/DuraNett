@@ -23,8 +23,8 @@ if __name__ == "__main__":
     district_num = sys.argv[1]
 
     # loading csv file to the program
-    batteries: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_batteries.csv")
-    houses: list = load(f"../Huizen&Batterijen/district_{district_num}/district-{district_num}_houses.csv")
+    batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
+    houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
 
     # place houses into batteries
     house_into_batteries(batteries, houses)
