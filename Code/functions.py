@@ -10,6 +10,7 @@
 from __future__ import annotations
 from classes import Battery, House, Grid
 import json
+import matplotlib as mpl
 
 
 def load(filename: str): 
@@ -21,7 +22,7 @@ def load(filename: str):
 
         while True:
             line = f.readline().replace('\"', '').strip()
-            
+
             if line == "":
                 break
             elif line_counter == 0:
@@ -50,18 +51,13 @@ def load(filename: str):
 
 
 def output(grid: Grid):
-    # https://stackoverflow.com/questions/3768895/how-to-make-a-class-json-serializable
-    
-    print(grid.toJSON())
+    """Convert to JSON file"""
+    grid.toJSON()
 
-    # convert to json file: link= https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
-#     with open("sample.json", "w") as outfile:
-#         outfile.write(json_object)
-    
-    # return json
 
 def visualize():
     pass
+
 
 def house_into_batteries(batteries: list, houses: list):
     for battery in range(len(batteries)):

@@ -64,5 +64,8 @@ class Grid:
         ]
 
     def toJSON(self):
-        return json.dumps(self.grid_list, default=lambda o: o.__dict__, sort_keys=True, skipkeys= True, indent=4)
-        
+        with open("output.json", "w") as output_file:
+            return json.dump(self.grid_list, output_file, indent= 4)
+    # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/
+    # https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
+    # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/
