@@ -248,4 +248,209 @@
             }
         ]
     }
+]               "location": [
+                    22,
+                    46
+                ],
+                "output": 62.43058175,
+                "cables": []
+            }
+        ]
+    },
+    {
+        "location": [
+            43,
+            13
+        ],
+        "capacity": 1507.0,
+        "houses": [
+            {
+                "location": [
+                    34,
+                    47
+                ],
+                "output": 53.97543253,
+                "cables": []
+            },
+            {
+                "location": [
+                    24,
+                    22
+                ],
+                "output": 66.13020717,
+                "cables": []
+            },
+            {
+                "location": [
+                    49,
+                    44
+                ],
+                "output": 39.82123377,
+                "cables": []
+            },
+            {
+                "location": [
+                    19,
+                    38
+                ],
+                "output": 46.4333204,
+                "cables": []
+            },
+            {
+                "location": [
+                    22,
+                    46
+                ],
+                "output": 62.43058175,
+                "cables": []
+            }
+        ]
+    },
+    {
+        "location": [
+            42,
+            3
+        ],
+        "capacity": 1507.0,
+        "houses": [
+            {
+                "location": [
+                    34,
+                    47
+                ],
+                "output": 53.97543253,
+                "cables": []
+            },
+            {
+                "location": [
+                    24,
+                    22
+                ],
+                "output": 66.13020717,
+                "cables": []
+            },
+            {
+                "location": [
+                    49,
+                    44
+                ],
+                "output": 39.82123377,
+                "cables": []
+            },
+            {
+                "location": [
+                    19,
+                    38
+                ],
+                "output": 46.4333204,
+                "cables": []
+            },
+            {
+                "location": [
+                    22,
+                    46
+                ],
+                "output": 62.43058175,
+                "cables": []
+            }
+        ]
+    },
+    {
+        "location": [
+            49,
+            23
+        ],
+        "capacity": 1507.0,
+        "houses": [
+            {
+                "location": [
+                    34,
+                    47
+                ],
+                "output": 53.97543253,
+                "cables": []
+            },
+            {
+                "location": [
+                    24,
+                    22
+                ],
+                "output": 66.13020717,
+                "cables": []
+            },
+            {
+                "location": [
+                    49,
+                    44
+                ],
+                "output": 39.82123377,
+                "cables": []
+            },
+            {
+                "location": [
+                    19,
+                    38
+                ],
+                "output": 46.4333204,
+                "cables": []
+            },
+            {
+                "location": [
+                    22,
+                    46
+                ],
+                "output": 62.43058175,
+                "cables": []
+            }
+        ]
+    },
+    {
+        "location": [
+            3,
+            45
+        ],
+        "capacity": 1507.0,
+        "houses": [
+            {
+                "location": [
+                    34,
+                    47
+                ],
+                "output": 53.97543253,
+                "cables": []
+            },
+            {
+                "location": [
+                    24,
+                    22
+                ],
+                "output": 66.13020717,
+                "cables": []
+            },
+            {
+                "location": [
+                    49,
+                    44
+                ],
+                "output": 39.82123377,
+                "cables": []
+            },
+            {
+                "location": [
+                    19,
+                    38
+                ],
+                "output": 46.4333204,
+                "cables": []
+            },
+            {
+                "location": [
+                    22,
+                    46
+                ],
+                "output": 62.43058175,
+                "cables": []
+            }
+        ]
+    }
 ]

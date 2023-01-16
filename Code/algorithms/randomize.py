@@ -1,28 +1,35 @@
 import random
 import copy
+from classes import Cable
 
 # https://github.com/minprog/radio_russia_demo/blob/college_1/code/algorithms/randomise.py
 possibilities = range(50)
 
 
-def random_assignment(house, possibilities):
+def random_assignment(grid):
     """
     Randomly assign each cable with one of the possibilities.
     """
-    for i in random.choice(possibilities):
-        x = random.choice(possibilities)
-        y = random.choice(possibilities)
-        house.house_dict["cables"].update(tuple((x, y)))
+
+    # 
+    for house in grid.houses:
+        for i in range(random.choice(possibilities)):
+            x = random.choice(possibilities)
+            y = random.choice(possibilities)
+            cable = Cable(x, y)
+            house.house_dict["cables"].append(cable)
+
+    return grid
 
 
-def random_reconfigure_node(graph, node, possibilities):
+def random_reconfigure_node(graph, node):
     """
     Takes a node and assigns each node with one of the possibilities.
     """
     node.value = random.choice(possibilities)
 
 
-def random_reconfigure_nodes(graph, nodes, possibilities):
+def random_reconfigure_nodes(graph, nodes):
     """
     Takes a list of nodes and assigns each node with one of the possibilities.
     """

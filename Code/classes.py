@@ -34,7 +34,7 @@ class House:
         self.house_dict = {
             "location": tuple((x, y)),
             "output": max_output,
-            "cables": [Cable]
+            "cables": []
         }
 
 
@@ -48,8 +48,9 @@ class Cable:
 
 
 class Grid:
-    def __init__(self, batteries: list, district: int) -> None:
+    def __init__(self, batteries: list, houses: list, district: int) -> None:
         self.batteries = batteries
+        self.houses = houses
         self.district_num = district
         self.costs_shared = 0
         

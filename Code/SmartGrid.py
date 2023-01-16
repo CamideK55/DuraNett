@@ -10,6 +10,7 @@
 from classes import Battery, House, Grid
 from functions import load, output, house_into_batteries
 from visualisation.visualisation import visualize
+from algorithms import randomize
 import sys
 
 
@@ -27,14 +28,28 @@ if __name__ == "__main__":
     batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
     houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
 
+    # place cables in houses according to algorithms
+    # cables_into_batteries(houses)
+
     # place houses into batteries
     house_into_batteries(batteries, houses)
-
+    
     # initialize grid
-    grid = Grid(batteries, int(district_num))
+    grid = Grid(batteries, houses, int(district_num))
+
+    # place cables according to algorithm 
+    # grid_random = randomize.random_assignment(grid)
 
     # render output of grid
     output(grid)
 
     # visualize output
     visualize(grid)
+
+    # nieuwe stappenplan:
+    # initialize grid
+    # grid_random = randomize.random_assignment(grid)
+    # place houses into batteries
+    # render output of grid
+    # visualize outputs
+    
