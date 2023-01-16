@@ -18,7 +18,7 @@ class Battery:
         # self.id = unique_id
 
         self.battery_dict = {
-            "location": f"{tuple((x, y))}",
+            "location": tuple((x, y)),
             "capacity": capacity,
             "houses": []
         }
@@ -32,16 +32,16 @@ class House:
         # self.id = unique_id - not sure if needed
 
         self.house_dict = {
-            "location": f"{tuple((x, y))}",
+            "location": tuple((x, y)),
             "output": max_output,
-            "cables": []
+            "cables": [Cable]
         }
 
 
 class Cable:
-    def __init__(self) -> None:
+    def __init__(self, x, y) -> None:
         """ post: list of coordinates on which the cable runs """
-        self.location = []
+        self.location = tuple((x, y))
 
     def __repr__(self) -> str:
         return f"{self.location}"

@@ -66,3 +66,15 @@ def house_into_batteries(batteries: list, houses: list):
                 break
             batteries[battery].battery_dict["houses"].append(house.house_dict)
         # 30 houses per battery, implement for representation
+
+
+def is_solution():
+    pass
+
+
+def calc_value():
+    pass
+
+
+def get_violations():
+    pass

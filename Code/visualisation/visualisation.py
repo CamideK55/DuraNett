@@ -33,17 +33,26 @@ def visualize(grid):
 
     data = json.dumps(grid.grid_list, indent=4)
     
-    batteries = []
-    houses = []
+    # batteries = []
+    # houses = []
+    x_batteries = []
+    y_batteries = []
+    x_houses = []
+    y_houses = []
 
     for battery in grid.batteries:
-        batteries.append(battery.battery_dict["location"])
+        x_batteries.append(battery.battery_dict["location"][0])
+        y_batteries.append(battery.battery_dict["location"][1])
         for house in battery.battery_dict["houses"]:
-            houses.append(house["location"])
-
+            x_houses.append(house["location"][0])
+            y_houses.append(house["location"][1])
     
     # plt.style.use('_mpl-gallery')
-    plt.scatter(batteries, houses)
+    plt.scatter(x_houses, y_houses)
+    plt.scatter(x_batteries, y_batteries)
     
-    plt.show()
+    # place lines
+    plt.grid(visible = True)
+
     # plotting
+    plt.show()
