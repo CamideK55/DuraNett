@@ -11,6 +11,7 @@ from __future__ import annotations
 from classes import Battery, House, Grid
 import json
 import matplotlib as mpl
+# import jsonpickle
 
 
 def load(filename: str): 
@@ -66,6 +67,21 @@ def house_into_batteries(batteries: list, houses: list):
                 break
             batteries[battery].battery_dict["houses"].append(house.house_dict)
         # 30 houses per battery, implement for representation
+    return batteries
+
+
+def place_cables(batteries):
+    for battery in batteries:
+        location_battery = battery.battery_dict["location"]
+
+        for house in battery.battery_dict["houses"]:
+            location_house = house.house_dict["location"]
+
+            
+
+
+def toJSONpickle(object):
+    return jsonpickle.encode(object)
 
 
 def is_solution():

@@ -48,9 +48,9 @@ class Cable:
 
 
 class Grid:
-    def __init__(self, batteries: list, houses: list, district: int) -> None:
+    def __init__(self, batteries: list, district: int) -> None:
         self.batteries = batteries
-        self.houses = houses
+        # self.houses = houses
         self.district_num = district
         self.costs_shared = 0
         
@@ -66,7 +66,9 @@ class Grid:
 
     def toJSON(self):
         with open("output.json", "w") as output_file:
-            return json.dump(self.grid_list, output_file, indent= 4)
+            return json.dump(self.grid_list, output_file, indent= 4)        
+
+    
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/
     # https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/

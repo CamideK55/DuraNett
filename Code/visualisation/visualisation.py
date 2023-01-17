@@ -46,12 +46,14 @@ def visualize(grid):
     for battery in grid.batteries:
         x_batteries.append(battery.battery_dict["location"][0])
         y_batteries.append(battery.battery_dict["location"][1])
-    for house in grid.houses:
-        x_houses.append(house.house_dict["location"][0])
-        y_houses.append(house.house_dict["location"][1])
-        for cable in house.house_dict["cables"]:
-            x_cables.append(cable.location[0])
-            y_cables.append(cable.location[1])
+        
+        for house in battery.battery_dict["houses"]:
+            x_houses.append(house["location"][0])
+            y_houses.append(house["location"][1])
+            
+            for cable in house["cables"]:
+                x_cables.append(cable.location[0])
+                y_cables.append(cable.location[1])
         
     # for battery in grid.batteries:
     #     x_batteries.append(battery.battery_dict["location"][0])
@@ -60,6 +62,7 @@ def visualize(grid):
     #         x_houses.append(house["location"][0])
     #         y_houses.append(house["location"][1])
     
+    print("Start visualization")
     # plt.style.use('_mpl-gallery')
     plt.scatter(x_houses, y_houses)
     plt.scatter(x_batteries, y_batteries)
@@ -70,3 +73,5 @@ def visualize(grid):
 
     # plotting
     plt.show()
+    
+    print("Visualization done")
