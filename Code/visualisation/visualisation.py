@@ -63,6 +63,7 @@ def visualize(grid):
     #         y_houses.append(house["location"][1])
     
     print("Start visualization")
+
     # plt.style.use('_mpl-gallery')
     plt.scatter(x_houses, y_houses)
     plt.scatter(x_batteries, y_batteries)
@@ -72,6 +73,7 @@ def visualize(grid):
     plt.grid(visible = True)
 
     # plotting
+    plt.savefig("results.png")
     plt.show()
     
     print("Visualization done")

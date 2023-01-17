@@ -77,8 +77,7 @@ def place_cables(batteries):
         for house in battery.battery_dict["houses"]:
             location_house = house.house_dict["location"]
 
-            
-
+        
 
 def toJSONpickle(object):
     return jsonpickle.encode(object)
