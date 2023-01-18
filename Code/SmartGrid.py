@@ -38,7 +38,7 @@ if __name__ == "__main__":
     batteries = randomize.random_assignment(batteries, houses)
 
     # place cables
-    # batteries = place_cables(batteries)
+    batteries = place_cables(batteries)
     
     # # place houses into batteries
     # update_batteries = house_into_batteries(batteries, houses)

@@ -8,7 +8,7 @@
 #  ***************************************************************************
 
 from __future__ import annotations
-from classes import Battery, House, Grid
+from classes import Battery, House, Grid, Cable
 import json
 import matplotlib as mpl
 # import jsonpickle
@@ -72,10 +72,37 @@ def house_into_batteries(batteries: list, houses: list):
 
 def place_cables(batteries):
     for battery in batteries:
-        location_battery = battery.battery_dict["location"]
+        location_battery = list(battery.battery_dict["location"])
+        battery_x = location_battery[0]
+        battery_y = location_battery[1]
+        cable_list = []
 
         for house in battery.battery_dict["houses"]:
-            location_house = house.house_dict["location"]
+            location_house = list(house["location"])
+            location_cable = location_house
+            house_x = location_house[0]
+            house_y = location_house[1]
+
+            # search for an equal x
+            while location_cable[0] != location_battery[0]:
+                if location_cable[0] > location_battery[0]:
+                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    location_cable[0] -= 1
+                else:
+                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    location_cable[0] += 1
+            # search for an equal y
+            while location_cable[1] != location_battery[1]:
+                if location_cable[1] > location_battery[1]:
+                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    location_cable[1] -= 1
+                else:
+                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    location_cable[1] += 1
+            
+            cable_list.append(Cable(location_battery[0], location_battery[1]))
+    return batteries
+    
 
         
 
