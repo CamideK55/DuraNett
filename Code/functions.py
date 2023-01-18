@@ -8,13 +8,16 @@
 #  ***************************************************************************
 
 from __future__ import annotations
-from classes import Battery, House, Grid, Cable
+from classes.battery import Battery
+from classes.house import House
+from classes.grid_format import Grid
+from classes.cable import Cable
 import json
 import matplotlib as mpl
 # import jsonpickle
 
 
-def load(filename: str): 
+def load(filename: str):
     with open(filename) as f:
         list = []
 
@@ -44,20 +47,17 @@ def load(filename: str):
             else:
                 raise ValueError('file is invalid')
 
-            
             unique_id += 1
             line_counter += 1
     
     return list
 
 
-def output(grid: Grid):
+def output(grid):
     """Convert to JSON file"""
-    grid.toJSON()
-
-
-def visualize():
-    pass
+    # grid.toJSON()
+    with open("output.json", "w") as output_file:
+            return json.dump(grid, output_file, indent= 4, default=vars)        
 
 
 def house_into_batteries(batteries: list, houses: list):
@@ -65,58 +65,96 @@ def house_into_batteries(batteries: list, houses: list):
         for index, house in enumerate(houses):
             if index == 5:
                 break
-            batteries[battery].battery_dict["houses"].append(house.house_dict)
-        # 30 houses per battery, implement for representation
+            batteries[battery].houses.append(house.house_dict)
     return batteries
 
 
 def place_cables(batteries):
+    costs_shared = 0
     for battery in batteries:
-        location_battery = list(battery.battery_dict["location"])
-        battery_x = location_battery[0]
-        battery_y = location_battery[1]
+        location_battery = list(battery.location)
         cable_list = []
+        costs_shared += 5000
 
-        for house in battery.battery_dict["houses"]:
-            location_house = list(house["location"])
-            location_cable = location_house
-            house_x = location_house[0]
-            house_y = location_house[1]
+        for house in battery.houses:
+            location_cable = list(house.location)
 
             # search for an equal x
             while location_cable[0] != location_battery[0]:
                 if location_cable[0] > location_battery[0]:
-                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[0] -= 1
+                    costs_shared += 9
                 else:
-                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[0] += 1
+                    costs_shared += 9
             # search for an equal y
             while location_cable[1] != location_battery[1]:
                 if location_cable[1] > location_battery[1]:
-                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[1] -= 1
+                    costs_shared += 9
                 else:
-                    house["cables"].append(Cable(location_cable[0], location_cable[1]))
+                    house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[1] += 1
+                    costs_shared += 9
             
             cable_list.append(Cable(location_battery[0], location_battery[1]))
-    return batteries
-    
+    return batteries, costs_shared
 
-        
 
-def toJSONpickle(object):
-    return jsonpickle.encode(object)
+def correct_json(grid): 
+    grid_dict = {
+        "district": grid.district_num,
+        "costs-shared": grid.costs_shared 
+    }
+
+    grid_list = [
+        grid_dict,
+        *battery_dict(grid.batteries)
+    ]
+
+    return grid_list
+
+    # List[dict{"district",
+    # "costs-shared"},
+    #  dict{"location",
+    # "capacity",
+    # "houses":[{"location",
+    #     "output",
+    #     "cables"[]]}}]
+
+
+def house_dict(houses):
+    for house in houses:
+        house_dict = {
+            "location": house.location,
+            "output": house.output,
+            "cables": [f"{cable.location}" for cable in house.cables]
+        }
+        return house_dict
+
+
+def battery_dict(batteries):
+    battery_list = []
+    for battery in batteries:
+        battery_dict = {
+            "location": battery.location,
+            "capacity": battery.capacity,
+            "houses": [house_dict(battery.houses) for battery in batteries]
+        }
+        battery_list.append(battery_dict)
+    return battery_list
 
 
 def is_solution():
     pass
 
 
-def calc_value():
-    pass
-
-
 def get_violations():
     pass
+
+
+def get_costs(grid):
+    return grid.costs_shared
