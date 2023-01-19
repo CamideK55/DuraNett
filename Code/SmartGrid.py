@@ -28,19 +28,22 @@ if __name__ == "__main__":
     batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
     houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
 
-    # place houses in batteries according to algorithms
-    batteries = randomize.random_assignment(batteries, houses)
+    # ------------ Place houses in batteries according to algorithms ------------
 
-    # place cables
+    # --------------------------- Random reassignment --------------------------
+    batteries = randomize.valid_random_assignment(batteries, houses)
+
+    # --------------------------- Place cables ---------------------------------
     batteries, costs_shared = place_cables(batteries)
 
-    # update grid with batteries and houses that have cables
+    # -------- Update grid with batteries and houses that have cables ----------
     grid = Grid(batteries, costs_shared, int(district_num))
 
-    # correct to right output format
+    # --------------------- correct to right output format ---------------------
     grid_output = correct_json(grid)
 
-    # render output of grid
+    # ----------------------- Render output of grid ------------------------
+    # 
     output(grid_output)
 
     # output score

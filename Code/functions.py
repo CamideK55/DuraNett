@@ -89,6 +89,7 @@ def place_cables(batteries):
                     house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[0] += 1
                     costs_shared += 9
+            house.cables.append(Cable(location_cable[0], location_cable[1]))
             # search for an equal y
             while location_cable[1] != location_battery[1]:
                 if location_cable[1] > location_battery[1]:
@@ -126,21 +127,11 @@ def correct_json(grid):
     #     "cables"[]]}}]
 
 
-def house_dict(houses):
-    for house in houses:
-        house_dict = {
-            "location": house.location,
-            "output": house.output,
-            "cables": [f"{cable.location}" for cable in house.cables]
-        }
-        return house_dict
-
-
 def battery_dict(batteries):
     battery_list = []
     for battery in batteries:
         battery_dict = {
-            "location": battery.location,
+            "location": f"{battery.location[0]},{battery.location[1]}",
             "capacity": battery.capacity,
             "houses": [house_dict(battery.houses) for battery in batteries]
         }
@@ -148,6 +139,23 @@ def battery_dict(batteries):
     return battery_list
 
 
+def house_dict(houses):
+    for house in houses:
+        house_dict = {
+            "location": f"{house.location[0]},{house.location[1]}",
+            "output": house.output,
+            "cables": [f"{cable.x},{cable.y}" for cable in house.cables]
+        }
+        return house_dict
+
+
+def batteries_capacity_check(batteries: list):
+    for battery in batteries:
+        if battery.battery_capacity_overloaded():
+            return False
+    return True
+        
+        
 def is_solution():
     pass
 

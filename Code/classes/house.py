@@ -4,3 +4,9 @@ class House:
         self.location = tuple((x, y))
         self.output = max_output
         self.cables = []
+
+    def empty_cables(self):
+        self.cables = []
+
+    def __repr__(self):
+        return f"{self.location}"
