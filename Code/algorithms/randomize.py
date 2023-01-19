@@ -32,15 +32,14 @@ def valid_random_assignment(batteries: list, houses: list):
     i = 1
     while True:
         batteries = random_assignment(batteries, copy.deepcopy(houses))
-        print(i)
+        # print(i)
         i += 1 
         for battery in batteries:
             overgebleven_capacity = battery.capacity - battery.total_output_houses
-            print(f"overgebleven capatiteit = {overgebleven_capacity}")
+            # print(f"overgebleven capatiteit = {overgebleven_capacity}")
         if batteries_capacity_check(batteries):
             break
     return batteries
-
 
 
 

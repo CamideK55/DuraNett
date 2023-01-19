@@ -57,7 +57,7 @@ def output(grid):
     """Convert to JSON file"""
     # grid.toJSON()
     with open("output.json", "w") as output_file:
-            return json.dump(grid, output_file, indent= 4, default=vars)        
+            return json.dump(grid, output_file, indent= 4, default=vars)
 
 
 def house_into_batteries(batteries: list, houses: list):
@@ -90,6 +90,8 @@ def place_cables(batteries):
                     location_cable[0] += 1
                     costs_shared += 9
             house.cables.append(Cable(location_cable[0], location_cable[1]))
+            costs_shared += 9
+
             # search for an equal y
             while location_cable[1] != location_battery[1]:
                 if location_cable[1] > location_battery[1]:
@@ -100,7 +102,9 @@ def place_cables(batteries):
                     house.cables.append(Cable(location_cable[0], location_cable[1]))
                     location_cable[1] += 1
                     costs_shared += 9
-            
+            house.cables.append(Cable(location_cable[0], location_cable[1]))
+            costs_shared += 9
+
             cable_list.append(Cable(location_battery[0], location_battery[1]))
     return batteries, costs_shared
 
@@ -133,21 +137,22 @@ def battery_dict(batteries):
         battery_dict = {
             "location": f"{battery.location[0]},{battery.location[1]}",
             "capacity": battery.capacity,
-            "houses": [house_dict(battery.houses) for battery in batteries]
+            "houses": [*house_dict(battery.houses)]
         }
         battery_list.append(battery_dict)
     return battery_list
 
 
 def house_dict(houses):
+    house_list = []
     for house in houses:
         house_dict = {
             "location": f"{house.location[0]},{house.location[1]}",
             "output": house.output,
             "cables": [f"{cable.x},{cable.y}" for cable in house.cables]
         }
-        return house_dict
-
+        house_list.append(house_dict)
+    return house_list
 
 def batteries_capacity_check(batteries: list):
     for battery in batteries:

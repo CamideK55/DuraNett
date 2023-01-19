@@ -8,6 +8,7 @@ class Battery:
         self.capacity = capacity
         self.houses = []
         self.total_output_houses = 0
+        self.cost = 5000
 
     def battery_capacity_overloaded(self):
         if self.total_output_houses <= self.capacity:

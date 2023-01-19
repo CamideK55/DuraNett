@@ -6,6 +6,8 @@ class Grid:
         # self.houses = houses
         self.district_num = district
         self.costs_shared = costs_shared
+        # self.total_costs = 0
+        self.total_costs_II = 0
 
         self.grid_list = [
             self.district_num,
@@ -15,7 +17,17 @@ class Grid:
 
     def toJSON(self):
         with open("output.json", "w") as output_file:
-            return json.dump(self.grid_list, output_file, indent= 4, default=vars)        
+            return json.dump(self.grid_list, output_file, indent= 4, default=vars)
+
+
+    def total_costs(self):
+        for battery in self.batteries:
+            self.total_costs_II += battery.cost
+
+            for house in battery.houses:
+                self.total_costs_II += sum([cable.cost for cable in house.cables])
+
+        return self.total_costs_II
 
     
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/

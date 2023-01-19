@@ -4,6 +4,7 @@ class Cable:
         self.location = tuple((x, y))
         self.x = x
         self.y = y
+        self.cost = 9
 
     def __repr__(self) -> str:
         return f"{self.location}"
