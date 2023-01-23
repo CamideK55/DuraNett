@@ -23,18 +23,19 @@ class Grid:
 
 
     def total_costs(self):
+        costs = 0
         for battery in self.batteries:
-            self.total_costs_II += battery.cost
+            costs += battery.cost
 
             for house in battery.houses:
-                self.total_costs_II += sum([cable.cost for cable in house.cables])
+                costs += sum([cable.cost for cable in house.cables])
 
-        return self.total_costs_II
+        return costs
 
-    def remove_random_house_from_batterys(self):
-        index = random.randint(len(range(self.batteries)))
+    def remove_random_house_from_batteries(self):
+        index = random.choice(range(len(self.batteries)))
         battery = self.batteries[index]
-        house = battery.houses[random.randint(len(range(battery.houses)))]
+        house = battery.houses[random.choice(range(len(battery.houses)))]
         house.empty_cables()
         return house
     

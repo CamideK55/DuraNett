@@ -11,6 +11,7 @@ from classes.grid_format import Grid
 from functions import load, output, house_into_batteries, place_cables, get_costs, correct_json
 from visualisation.visualisation import visualize
 from algorithms import randomize
+from algorithms import hill_climber as hc
 import sys
 
 
@@ -39,9 +40,12 @@ if __name__ == "__main__":
 
     # -------- Update grid with batteries and houses that have cables ----------
     grid = Grid(batteries, costs_shared, int(district_num))
-    print(get_costs(grid))
+    print(grid.total_costs())
 
     # ------------------------------- Hill Climber ------------------------------
+    climber = hc.HillClimber(grid)
+
+    climber.run(10)
     
 
 

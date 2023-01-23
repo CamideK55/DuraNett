@@ -16,6 +16,11 @@ class Battery:
         else:
             return True
 
+    def battery_check(self, house):
+        if self.total_output_houses + house.output > self.capacity:
+            return True
+        return False
+
     def empty_batteries(self):
         self.houses = []
         self.total_output_houses = 0
