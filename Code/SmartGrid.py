@@ -31,16 +31,18 @@ if __name__ == "__main__":
     # ------------ Place houses in batteries according to algorithms ------------
 
     # --------------------------- Random reassignment --------------------------
-    
-    for i in range(15):
-        batteries = randomize.valid_random_assignment(batteries, houses)
+    # for i in range(15):
+    batteries = randomize.valid_random_assignment(batteries, houses)
 
     # --------------------------- Place cables ---------------------------------
-        batteries, costs_shared = place_cables(batteries)
+    batteries, costs_shared = place_cables(batteries)                          
 
     # -------- Update grid with batteries and houses that have cables ----------
-        grid = Grid(batteries, costs_shared, int(district_num))
-        print(get_costs(grid))
+    grid = Grid(batteries, costs_shared, int(district_num))
+    print(get_costs(grid))
+
+    # ------------------------------- Hill Climber ------------------------------
+    
 
 
     # costs_shared2 = grid.total_costs()
@@ -50,7 +52,7 @@ if __name__ == "__main__":
 
 
     # # --------------------- correct to right output format ---------------------
-    # grid_output = correct_json(grid2)
+    grid_output = correct_json(grid)
 
     # # ----------------------- Render output of grid ------------------------
     # # 

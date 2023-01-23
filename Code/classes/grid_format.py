@@ -1,4 +1,6 @@
 import json
+import random
+
 
 class Grid:
     def __init__(self, batteries: list, costs_shared: int, district: int) -> None:
@@ -28,6 +30,18 @@ class Grid:
                 self.total_costs_II += sum([cable.cost for cable in house.cables])
 
         return self.total_costs_II
+
+    def remove_random_house_from_batterys(self):
+        index = random.randint(len(range(self.batteries)))
+        battery = self.batteries[index]
+        house = battery.houses[random.randint(len(range(battery.houses)))]
+        house.empty_cables()
+        return house
+    
+    def assign_house_to_random_battery(self, house):
+        self.batteries
+
+
 
     
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/

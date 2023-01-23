@@ -1,7 +1,7 @@
 class Battery:
     def __init__(self, x: int, y: int, capacity: float, unique_id: int) -> None:
         """ post:  """ 
-        # self.id = unique_id
+        self.id = unique_id
         self.location = (x,y)
         self.x = x
         self.y = y

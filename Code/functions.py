@@ -73,39 +73,13 @@ def place_cables(batteries):
     costs_shared = 0
     for battery in batteries:
         location_battery = list(battery.location)
-        cable_list = []
+        # cable_list = []
         costs_shared += 5000
 
         for house in battery.houses:
-            location_cable = list(house.location)
-
-            # search for an equal x
-            while location_cable[0] != location_battery[0]:
-                if location_cable[0] > location_battery[0]:
-                    house.cables.append(Cable(location_cable[0], location_cable[1]))
-                    location_cable[0] -= 1
-                    costs_shared += 9
-                else:
-                    house.cables.append(Cable(location_cable[0], location_cable[1]))
-                    location_cable[0] += 1
-                    costs_shared += 9
-            house.cables.append(Cable(location_cable[0], location_cable[1]))
-            costs_shared += 9
-
-            # search for an equal y
-            while location_cable[1] != location_battery[1]:
-                if location_cable[1] > location_battery[1]:
-                    house.cables.append(Cable(location_cable[0], location_cable[1]))
-                    location_cable[1] -= 1
-                    costs_shared += 9
-                else:
-                    house.cables.append(Cable(location_cable[0], location_cable[1]))
-                    location_cable[1] += 1
-                    costs_shared += 9
-            house.cables.append(Cable(location_cable[0], location_cable[1]))
-            costs_shared += 9
-
-            cable_list.append(Cable(location_battery[0], location_battery[1]))
+            cable_costs = house.placing_cable(battery)
+            costs_shared += cable_costs
+            # cable_list.append(Cable(location_battery[0], location_battery[1]))
     return batteries, costs_shared
 
 
