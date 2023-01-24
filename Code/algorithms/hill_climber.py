@@ -1,50 +1,74 @@
+# ****************************************************************************
+#  * functions.py
+#  *
+#  * Algoritmen & Heuristieken
+#  * DuraNett: Joey Bink, Jasper Claessen & Camiel de Kom
+#  *
+#  * implementation of all functions
+#  ***************************************************************************
+
 import sys
 
 sys.path.append('.../')
 
 import random
 import copy
-from functions import batteries_capacity_check
-from classes.battery import Battery
-from classes.cable import Cable
-from classes.house import House
-from classes.grid_format import Grid
 
 class HillClimber:
+    """ HillClimber is an iterative algorithm that generates states of the system 
+    by mutation of a randomly created initiale state. The algorithm mutates the 
+    the system by way of placing a randomly chosen house to a randomly chosen
+    battery. The algorithem saves the state with the lowest costs as the systems 
+    current state. """
     def __init__(self, Grid):
-        
         self.value = Grid.total_costs()
-        print(self.value)
 
         # Kies een random start state
         self.grid = copy.deepcopy(Grid)
 
 
     def mutate_grid(self, new_grid):
+        """ Mutate the current grid by reassigning a random
+        house to a random battery. """
 
-    # Doe een kleine random aanpassing
+        # remove random house from its battery
         house = new_grid.remove_random_house_from_batteries()
 
-        index = random.choice(range(len(new_grid.batteries)))
-        battery = new_grid.batteries[index]
+        # Randomly 
+        battery = new_grid.batteries[random.choice(range(len(new_grid.batteries)))]
+        
+        # add house to the list of houses from the battery
+        battery.houses.append(house)
+
+        # place cables from the house to the battery in the house's cable list
         house.placing_cable(battery)
 
 
     def check_solution(self, new_grid):
-
+        """ Check if the new generated state is better than the current state 
+        if so, set the current state equal to the new state. """
+        
+        # calculate the results from the new state
         new_value = new_grid.total_costs()
-        old_value = self.value
+        current_value = self.value
 
-        print(f"new value = {new_value} and old value = {old_value}")
-        if new_value <= old_value:
+        print(f"new value = {new_value} and old value = {current_value}")
+        
+        # check if the new state has better results than the current state
+        if new_value <= current_value:
+
+            # change the current state to the new state
             self.grid = new_grid
             self.value = new_value
-        
 
 
     def run(self, iterations):
+        """ Runs the HillClimber algorithm for a user defined amount of iterations. """
+        
+        # initialize iteratons
         self.iterations = iterations
 
+        # loop for the amount of iterations 
         for iterations in range(iterations):
             
             # Creat a copy of the grid to simulate change
