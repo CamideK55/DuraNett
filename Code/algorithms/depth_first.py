@@ -78,7 +78,10 @@ class Depth_first:
                     self.create_children(new_batteries, house)
                     house.placed = True
                 else:
-                    break
+                    continue
+            
+            self.check_solutions(new_batteries)
+        self.batteries = self.best_solution
                 
         
     # move to class as method
