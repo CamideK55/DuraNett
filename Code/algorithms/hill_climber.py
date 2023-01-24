@@ -1,10 +1,14 @@
 # ****************************************************************************
-#  * functions.py
+#  * hill_climber.py
 #  *
 #  * Algoritmen & Heuristieken
 #  * DuraNett: Joey Bink, Jasper Claessen & Camiel de Kom
 #  *
-#  * implementation of all functions
+#  * implementation of the Hill Climber algorithm
+#  *
+#  * This algorithm is based on and inspired by the Hill Climber algorithm
+#  * which is given on the Radio Russia github that corresponds to this 
+#  * course.
 #  ***************************************************************************
 
 import sys
@@ -79,5 +83,3 @@ class HillClimber:
 
             # Accept the mutation if its better
             self.check_solution(new_grid)
-
-            

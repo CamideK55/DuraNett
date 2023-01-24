@@ -12,6 +12,7 @@ from functions import load, output, house_into_batteries, place_cables, get_cost
 from visualisation.visualisation import visualize
 from algorithms import randomize
 from algorithms import hill_climber as hc
+from algorithms import simulatedannealing as sa
 import sys
 
 
@@ -43,10 +44,13 @@ if __name__ == "__main__":
     print(grid.total_costs())
 
     # ------------------------------- Hill Climber ------------------------------
-    climber = hc.HillClimber(grid)
-    climber.run(2000)
+    # climber = hc.HillClimber(grid)
+    # climber.run(2000)
     
-
+    # --------------------------- Simmulated Annealing --------------------------
+    print("Starting Simmulated Annealing")
+    siman = sa.SimulatedAnnealing(grid, 40)
+    siman.run(10000)
 
     # costs_shared2 = grid.total_costs()
 

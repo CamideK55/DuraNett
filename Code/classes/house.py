@@ -6,6 +6,7 @@ class House:
         self.location = tuple((x, y))
         self.output = max_output
         self.cables = []
+        self.placed = False
 
     def empty_cables(self):
         self.cables = []
