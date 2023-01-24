@@ -44,8 +44,7 @@ if __name__ == "__main__":
 
     # ------------------------------- Hill Climber ------------------------------
     climber = hc.HillClimber(grid)
-
-    climber.run(10)
+    climber.run(2000)
     
 
 
