@@ -13,19 +13,20 @@ from classes.battery import Battery
 from classes.grid_format import Grid
 from functions import place_cables
 
-
+depth = 150
 class Depth_first:
     """
     Depth first algorithm which constructs a stack of grids, each with its own version of houses-batteries assignment
     """
 
     def __init__(self, batteries, houses):
-        self.houses: list = houses
+        self.houses: list = copy.deepcopy(houses)
         self.batteries: list = copy.deepcopy(batteries)         #deepcopy?
         self.optional_state = [copy.deepcopy(self.batteries)]
         self.best_solution = [None]
         self.lowest_cost = float('inf')
         self.states_visted = 0
+        self.archive = set()
 
     def next_state(self):
         return self.optional_state.pop()
@@ -40,7 +41,6 @@ class Depth_first:
             new_batteries = copy.deepcopy(batteries)
             battery.houses.append(house)
             
-
             for new_battery in new_batteries:
                 if new_battery.id == battery.id:
                     new_battery = battery
@@ -55,34 +55,38 @@ class Depth_first:
         new_value = place_cables(new_batteries)[1]
         old_value = self.lowest_cost
 
-        # We are looking for maps that cost less!
+        # We are looking for grids that cost less
         if new_value <= old_value:
             self.best_solution = new_batteries
             self.lowest_cost = new_value
             print(f"New lowest cost: {self.lowest_cost}")
-        
 
-    # def batteries_capacity_check(batteries: list): aanroepen
 
     def run(self):
         """
         Runs the algorithm untill all possible states are visited.
         """
-        while self.optional_state:
+        new_batteries = None
+        for i in range(depth):
+        # while self.optional_state:
             new_batteries = self.next_state()
+            print(new_batteries)
             self.states_visted += 1
-            # grid_run = Grid(new_batteries, 0, 0)
         
-            for house in self.houses:
+            for house in self.houses: # 
                 if not house.placed:
                     self.create_children(new_batteries, house)
                     house.placed = True
                 else:
                     continue
-            
-            self.check_solutions(new_batteries)
         
+        self.check_solutions(new_batteries)
+        
+        print(self.states_visted)
         self.batteries = self.best_solution
+        # print(self.best_solution)
+
+        return self.batteries
                 
         
     # move to class as method
@@ -91,7 +95,6 @@ class Depth_first:
         returns a list of available batteries in which the house could be included, based on the current 
         capacity of the battery and total output of the houses 
         """
-    
         available_opt = set(batteries)
         unavailable_opt = set()
         for battery in batteries:

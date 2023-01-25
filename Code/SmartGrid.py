@@ -35,16 +35,17 @@ if __name__ == "__main__":
 
     #------------------------- Depth first search -------------------------------
     depth = df.Depth_first(batteries, houses)
-    depth.run()
+    batteries = depth.run()
 
     # --------------------------- Random reassignment --------------------------
     # for i in range(15):
     # batteries = randomize.valid_random_assignment(batteries, houses)
 
     # --------------------------- Place cables ---------------------------------
-    batteries, costs_shared = place_cables(batteries)                          
+    # batteries, costs_shared = place_cables(batteries)                          
 
     # -------- Update grid with batteries and houses that have cables ----------
+    costs_shared = depth.lowest_cost
     grid = Grid(batteries, costs_shared, int(district_num))
     print(grid.total_costs())
 
@@ -68,12 +69,12 @@ if __name__ == "__main__":
 
     # # ----------------------- Render output of grid ------------------------
     # # 
-    # output(grid_output)
+    output(grid_output)
 
     # # output score
-    # print(get_costs(grid))
+    print(get_costs(grid))
 
     # # visualize output
-    # visualize(grid)
+    visualize(grid)
 
 
