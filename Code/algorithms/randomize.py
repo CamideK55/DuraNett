@@ -6,6 +6,7 @@ import random
 import copy
 from functions import batteries_capacity_check
 from classes.battery import Battery
+from classes.grid_format import Grid
 # from .. import functions
 
 # https://github.com/minprog/radio_russia_demo/blob/college_1/code/algorithms/randomise.py
@@ -20,13 +21,30 @@ def random_assignment(batteries: list, houses: list):
             house.empty_cables()
         battery.empty_batteries()
     while len(houses) > 0:
-        for battery in batteries:
-            random.shuffle(houses)
-            index = random.choice(range(len(houses)))
-            battery.houses.append(houses[index])
-            battery.total_output_houses += houses[index].output
-            houses.pop(index)
+        # for battery in batteries:
+        #     random.shuffle(houses)
+        #     index = random.choice(range(len(houses)))
+        #     if battery.battery_check(houses[index]):
+        #         continue
+        #     else:
+        #         battery.houses.append(houses[index])
+        #         battery.total_output_houses += houses[index].output
+        #         houses.pop(index)
+            
+
+
+        for house in houses:
+            index = random.randint(0, 4)
+            battery = batteries[index]
+            if battery.battery_check(house):
+                continue
+            else:
+                battery.houses.append(house)
+                battery.total_output_houses += house.output
+                houses.pop()
     return batteries
+
+
     
 def valid_random_assignment(batteries: list, houses: list):
     i = 1

@@ -23,9 +23,9 @@ class Depth_first:
         self.houses: list = houses
         self.batteries: list = copy.deepcopy(batteries)         #deepcopy?
         self.optional_state = [copy.deepcopy(self.batteries)]
-        self.best_solution = None
+        self.best_solution = [None]
         self.lowest_cost = float('inf')
-
+        self.states_visted = 0
 
     def next_state(self):
         return self.optional_state.pop()
@@ -38,11 +38,12 @@ class Depth_first:
         # add a version of the batteries-houses to the stack, with a unique batteries combination
         for battery in options:
             new_batteries = copy.deepcopy(batteries)
-            
             battery.houses.append(house)
+            
 
-            if new_batteries.battery.unique_id == battery.unique_id:
-                new_batteries.battery = battery
+            for new_battery in new_batteries:
+                if new_battery.id == battery.id:
+                    new_battery = battery
 
             self.optional_state.append(new_batteries)
     
@@ -67,10 +68,9 @@ class Depth_first:
         """
         Runs the algorithm untill all possible states are visited.
         """
-
-
         while self.optional_state:
-            new_batteries = self.next_state() 
+            new_batteries = self.next_state()
+            self.states_visted += 1
             # grid_run = Grid(new_batteries, 0, 0)
         
             for house in self.houses:
@@ -81,6 +81,7 @@ class Depth_first:
                     continue
             
             self.check_solutions(new_batteries)
+        
         self.batteries = self.best_solution
                 
         
