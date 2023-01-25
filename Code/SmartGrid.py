@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # batteries, costs_shared = place_cables(batteries)                          
 
     # -------- Update grid with batteries and houses that have cables ----------
-    costs_shared = depth.lowest_cost
+    costs_shared = int(depth.lowest_cost)
     grid = Grid(batteries, costs_shared, int(district_num))
     print(grid.total_costs())
 
