@@ -86,7 +86,7 @@ def place_cables(batteries):
 def correct_json(grid): 
     grid_dict = {
         "district": grid.district_num,
-        "costs-shared": grid.costs_shared 
+        "costs-shared": grid.total_costs() 
     }
 
     grid_list = [

@@ -10,6 +10,7 @@ class House:
 
     def empty_cables(self):
         self.cables = []
+        self.placed = False
 
     def placing_cable(self, battery):
         location_battery = list(battery.location)

@@ -3,11 +3,11 @@ import random
 
 
 class Grid:
-    def __init__(self, batteries: list, costs_shared: int, district: int) -> None:
+    def __init__(self, batteries: list, houses, district: int) -> None:
         self.batteries = batteries
-        # self.houses = houses
+        self.houses = houses
         self.district_num = district
-        self.costs_shared = costs_shared
+        self.costs_shared = 0
         # self.total_costs = 0
         self.total_costs_II = 0
 
@@ -26,7 +26,6 @@ class Grid:
         costs = 0
         for battery in self.batteries:
             costs += battery.cost
-
             for house in battery.houses:
                 costs += sum([cable.cost for cable in house.cables])
 
@@ -42,7 +41,8 @@ class Grid:
     def assign_house_to_random_battery(self, house):
         self.batteries
 
-
+    def give_houses_length(self):
+        return len(self.houses)
 
     
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/

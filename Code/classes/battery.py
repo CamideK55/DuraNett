@@ -17,7 +17,7 @@ class Battery:
             return True
 
     def battery_check(self, house):
-        print(f"{self.total_output_houses} + {house.output} > {self.capacity}")
+        # print(f"{self.total_output_houses} + {house.output} > {self.capacity}")
         if self.total_output_houses + house.output > self.capacity:
             return True
         return False

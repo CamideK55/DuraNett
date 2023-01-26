@@ -14,6 +14,7 @@ from algorithms import randomize
 from algorithms import depth_first as df
 from algorithms import hill_climber as hc
 from algorithms import simulatedannealing as sa
+from algorithms import random as rand
 import sys
 
 
@@ -23,7 +24,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: SmartGrid.py <district number>\n")
         exit(1)
-
+    
     # retrieve user input from command-line
     district_num = sys.argv[1]
 
@@ -34,20 +35,28 @@ if __name__ == "__main__":
     # ------------ Place houses in batteries according to algorithms ------------
 
     #------------------------- Depth first search -------------------------------
-    depth = df.Depth_first(batteries, houses)
-    batteries = depth.run()
+    # depth = df.Depth_first(batteries, houses)
+    # batteries = depth.run()
+    # print("states:", depth.states_visted)
+
+
+    # -------- Update grid with batteries and houses that have cables ----------
+    # costs_shared = int(depth.lowest_cost)
+    grid = Grid(batteries, houses, int(district_num))
+    
 
     # --------------------------- Random reassignment --------------------------
     # for i in range(15):
     # batteries = randomize.valid_random_assignment(batteries, houses)
+    
+    print(grid.batteries)
+    random = rand.Random(grid)
+    random.run()
 
-    # --------------------------- Place cables ---------------------------------
-    # batteries, costs_shared = place_cables(batteries)                          
+    batteries, costs_shared = place_cables(batteries)      
 
-    # -------- Update grid with batteries and houses that have cables ----------
-    costs_shared = int(depth.lowest_cost)
-    grid = Grid(batteries, costs_shared, int(district_num))
     print(grid.total_costs())
+    # print(grid.batteries)
 
     # ------------------------------- Hill Climber ------------------------------
     # climber = hc.HillClimber(grid)
@@ -72,7 +81,7 @@ if __name__ == "__main__":
     output(grid_output)
 
     # # output score
-    print(get_costs(grid))
+    # print(get_costs(grid))
 
     # # visualize output
     visualize(grid)
