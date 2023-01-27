@@ -49,9 +49,16 @@ if __name__ == "__main__":
     # for i in range(15):
     # batteries = randomize.valid_random_assignment(batteries, houses)
     
-    print(grid.batteries)
     random = rand.Random(grid)
     random.run()
+
+    total_houses_sum = 0
+    for battery in grid.batteries:
+        print(battery.total_output_houses)
+        total_houses = len(battery.houses)
+        print(total_houses)
+        total_houses_sum += total_houses
+    print(f"Total houses in batteries is {total_houses_sum}")
 
     batteries, costs_shared = place_cables(batteries)      
 
@@ -84,6 +91,6 @@ if __name__ == "__main__":
     # print(get_costs(grid))
 
     # # visualize output
-    visualize(grid)
+    # visualize(grid)
 
 

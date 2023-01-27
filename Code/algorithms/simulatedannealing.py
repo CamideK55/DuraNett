@@ -24,6 +24,7 @@ class SimulatedAnnealing(HillClimber):
         # Starting temperature and current temperature
         self.Temp_start = temperature
         self.Temp = temperature
+        self.best_value = self.value
     
     def update_temperature(self):
         """ Type something """
@@ -33,6 +34,7 @@ class SimulatedAnnealing(HillClimber):
         """ Type something """
         new_value = new_grid.total_costs()
         old_value = self.value
+        best_value = old_value
         
         delta = old_value - new_value
         acceptance_probability = math.exp(delta / self.Temp)
@@ -42,6 +44,9 @@ class SimulatedAnnealing(HillClimber):
         if random.random() < acceptance_probability:
             self.grid = new_grid
             self.value = new_value
+        
+        if new_value < best_value:
+            self.best_value = new_value
         
         self.update_temperature()
 
