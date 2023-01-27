@@ -69,7 +69,7 @@ def house_into_batteries(batteries: list, houses: list):
     return batteries
 
 
-def place_cables(batteries):
+def place_cables(batteries, grid):
     costs_shared = 0
     for battery in batteries:
         location_battery = list(battery.location)
@@ -77,7 +77,7 @@ def place_cables(batteries):
         costs_shared += 5000
 
         for house in battery.houses:
-            cable_costs = house.placing_cable(battery)
+            cable_costs = house.placing_cable(battery, grid)
             costs_shared += cable_costs
             # cable_list.append(Cable(location_battery[0], location_battery[1]))
     return batteries, costs_shared
@@ -133,6 +133,13 @@ def batteries_capacity_check(batteries: list):
         if battery.battery_capacity_overloaded():
             return False
     return True
+
+
+# def same_cable(grid, cable):
+#     if cable.location in grid.all_cables:
+#         return True
+#     else:
+#         return False
         
         
 def is_solution():

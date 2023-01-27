@@ -60,7 +60,8 @@ if __name__ == "__main__":
         total_houses_sum += total_houses
     print(f"Total houses in batteries is {total_houses_sum}")
 
-    batteries, costs_shared = place_cables(batteries)      
+    grid.batteries, costs_shared = place_cables(grid.batteries, grid)      
+    
 
     print(grid.total_costs())
     # print(grid.batteries)
@@ -90,7 +91,7 @@ if __name__ == "__main__":
     # # output score
     # print(get_costs(grid))
 
-    # # visualize output
-    # visualize(grid)
+    # visualize output
+    visualize(grid)
 
 

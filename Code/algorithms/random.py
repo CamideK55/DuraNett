@@ -29,7 +29,8 @@ class Random:
 
 
     def place_house_into_battery(self, battery, house):
-        """"""
+        """This function places the given house into the given battery if
+        it fits."""
         if battery.battery_check(house):
             return True
         battery.houses.append(house)
@@ -39,6 +40,7 @@ class Random:
 
 
     def does_house_fit(self, house):
+        """Chekcs if the given house fits into one of the batteries."""
         for battery in self.grid.batteries:
             if battery.battery_check(house):
                 return False
@@ -46,19 +48,22 @@ class Random:
 
 
     def get_radom_house(self):
+        """Returns a randomly chosen house"""
         index = random.choice(range(len(self.grid.houses)))
         house = self.grid.houses[index]
         return house
 
 
     def get_random_battery(self):
+        """Returns a randomly chosen battery"""
         index = random.choice(range(len(self.grid.batteries)))
         battery = self.grid.batteries[index]
         return battery
 
 
     def switch_houses(self, house):
-
+        """Switches the house given with a randomly chosen house
+        from a randomly chosen battery."""
         #remove random house from random battery
         battery = self.get_random_battery()
         house = battery.houses[random.choice(range(len(battery.houses)))]
@@ -72,6 +77,8 @@ class Random:
             
 
     def fill_batteries(self):
+        """Fills the batteries with houses. If a house doesn't fit into one
+        of the batteries the switch houses method is called."""
         for house in self.houses:
             index = random.choice(range(len(self.grid.batteries)))
             battery = self.grid.batteries[index]
@@ -87,6 +94,8 @@ class Random:
        
        
     def clear_batteries(self):
+        """Clears all batteries from their houses and empties their cable 
+        lists."""
         for battery in self.grid.batteries:
             for house in battery.houses:
                 house.empty_cables()
@@ -94,6 +103,8 @@ class Random:
 
     
     def run(self):
+        """Runs the method defined in this class in order to assign all
+        houses to a battery without exceeding the batterie's capacity"""
         while self.counter != len(self.houses):
             self.counter = 0
             self.clear_batteries()

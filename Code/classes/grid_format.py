@@ -1,5 +1,6 @@
 import json
 import random
+from classes.cable import Cable
 
 
 class Grid:
@@ -10,6 +11,7 @@ class Grid:
         self.costs_shared = 0
         # self.total_costs = 0
         self.total_costs_II = 0
+        self.all_cables : set[tuple[int]] = set()
 
         self.grid_list = [
             self.district_num,
@@ -38,11 +40,14 @@ class Grid:
         house.empty_cables()
         return house
     
-    def assign_house_to_random_battery(self, house):
-        self.batteries
+    # def assign_house_to_random_battery(self, house):
+    #     self.batteries
 
     def give_houses_length(self):
         return len(self.houses)
+
+    def same_cables(self, location):
+        return location in self.all_cables
 
     
     # https://pynative.com/python-json-dumps-and-dump-for-json-encoding/
