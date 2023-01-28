@@ -72,7 +72,7 @@ def house_into_batteries(batteries: list, houses: list):
 def place_cables(batteries, grid):
     costs_shared = 0
     for battery in batteries:
-        location_battery = list(battery.location)
+        # location_battery = list(battery.location)
         # cable_list = []
         costs_shared += 5000
 
@@ -152,3 +152,4 @@ def get_violations():
 
 def get_costs(grid):
     return grid.costs_shared
+

@@ -50,20 +50,20 @@ if __name__ == "__main__":
     # batteries = randomize.valid_random_assignment(batteries, houses)
     
     random = rand.Random(grid)
-    random.run()
+    grid_new = random.run()
 
     total_houses_sum = 0
-    for battery in grid.batteries:
+    for battery in grid_new.batteries:
         print(battery.total_output_houses)
         total_houses = len(battery.houses)
-        print(total_houses)
+        # print(total_houses)
         total_houses_sum += total_houses
     print(f"Total houses in batteries is {total_houses_sum}")
 
-    grid.batteries, costs_shared = place_cables(grid.batteries, grid)      
+    grid_new.batteries, costs_shared = place_cables(grid_new.batteries, grid_new)      
     
 
-    print(grid.total_costs())
+    print(grid_new.total_costs())
     # print(grid.batteries)
 
     # ------------------------------- Hill Climber ------------------------------
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 
     # # --------------------- correct to right output format ---------------------
-    grid_output = correct_json(grid)
+    grid_output = correct_json(grid_new)
 
     # # ----------------------- Render output of grid ------------------------
     # # 
@@ -92,6 +92,6 @@ if __name__ == "__main__":
     # print(get_costs(grid))
 
     # visualize output
-    visualize(grid)
+    visualize(grid_new)
 
 

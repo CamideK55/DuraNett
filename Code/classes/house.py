@@ -18,7 +18,7 @@ class House:
 
         bat_locations = [(x,y) for x,y,b in grid.all_cables if b == battery] + [battery.location]
 
-        # location_battery = functie(self.location, bat_locations)
+        location_battery = self.closest_battery(self.location, bat_locations)
 
         location_cable = list(self.location)
         cable_costs = 0
@@ -79,6 +79,17 @@ class House:
         cable_costs += 9
     
         return cable_costs
+
+    def closest_battery(self, location_house, locations_battery):
+        closest_location = tuple((51, 51))
+
+        # closest_location = location_battery
+
+        for location_battery in locations_battery:
+            if location_battery[0] <= closest_location[0] and location_battery[1] <= closest_location[1]:
+                closest_location = location_battery
+        return closest_location
+
 
     def __repr__(self):
         return f"{self.location}"
