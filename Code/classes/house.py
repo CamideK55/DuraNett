@@ -86,7 +86,7 @@ class House:
         # closest_location = location_battery
 
         for location_battery in locations_battery:
-            if location_battery[0] <= closest_location[0] and location_battery[1] <= closest_location[1]:
+            if abs(location_battery[0] - location_house[0]) <= closest_location[0] and abs(location_battery[1] - location_house[1]) <= closest_location[1]:
                 closest_location = location_battery
         return closest_location
 
