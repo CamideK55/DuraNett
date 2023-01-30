@@ -20,9 +20,10 @@ class Depth_first:
     Depth first algorithm which constructs a stack of grids, each with its own version of houses-batteries assignment
     """
 
-    def __init__(self, batteries, houses):
-        self.houses: list = copy.deepcopy(houses)
-        self.batteries: list = copy.deepcopy(batteries)
+    def __init__(self, grid):
+        self.grid = copy.deepcopy(grid)
+        self.houses = self.grid.houses
+        self.batteries = self.grid.batteries
         self.optional_state = [copy.deepcopy(self.batteries)]
         self.best_solution = [Battery]
         self.lowest_cost = float('inf')
@@ -64,7 +65,7 @@ class Depth_first:
 
     def depth_first_recursive(self, batteries, houses, house_index):
         if house_index == len(houses):
-            print("batteries:",batteries,"house_index:",house_index)
+            # print("batteries:",batteries,"house_index:",house_index)
             self.done = True
         #for index,h in enumerate(houses):
         if not self.done:
@@ -82,7 +83,7 @@ class Depth_first:
         Runs the algorithm untill all possible states are visited.
         """
         self.depth_first_recursive(self.batteries, self.houses, 0)
-        return self.batteries 
+        return self.grid
         
     # move to class as method
     # def get_possibilities(self, batteries, house):

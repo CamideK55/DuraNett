@@ -12,6 +12,7 @@ from classes.battery import Battery
 from classes.house import House
 from classes.grid_format import Grid
 from classes.cable import Cable
+from algorithms import random as rand
 import json
 import matplotlib as mpl
 # import jsonpickle
@@ -153,3 +154,12 @@ def get_violations():
 def get_costs(grid):
     return grid.costs_shared
 
+
+def run_random(iterations, grid):
+
+    for iteration in range(iterations):
+
+        random = rand.Random(grid)
+        random.run
+
+        random.check_solution(grid)

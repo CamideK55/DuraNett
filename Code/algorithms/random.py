@@ -26,6 +26,7 @@ class Random:
         self.houses = self.grid.houses
         self.counter = 0
         self.best_result = 0
+        self.state_counter = 0
         self.available_opt = set(self.grid.batteries)
         self.unavailable_opt = set()
 
@@ -37,6 +38,8 @@ class Random:
             return True
         # print("house adding to battery")
         battery.houses.append(house)
+        self.state_counter += 1
+        house.placing_cable(battery, self.grid)
         battery.total_output_houses += house.output
         house.placed = True
         self.houses.remove(house)
@@ -86,9 +89,12 @@ class Random:
         if self.place_house_into_battery(battery, house):
             # print("house can not be switched")
             battery.houses.append(removed_house)
+            self.state_counter += 1
+            removed_house.placing_cable(battery, self.grid)
             return False
         # print("House is switched")
         self.houses.append(removed_house)
+        self.state_counter += 1
         return True
 
 

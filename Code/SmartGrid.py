@@ -8,7 +8,7 @@
 #  ***************************************************************************
 
 from classes.grid_format import Grid
-from functions import load, output, house_into_batteries, place_cables, get_costs, correct_json
+from functions import load, output, house_into_batteries, run_random, place_cables, get_costs, correct_json
 from visualisation.visualisation import visualize
 from algorithms import randomize
 from algorithms import depth_first as df
@@ -17,81 +17,118 @@ from algorithms import simulatedannealing as sa
 from algorithms import random as rand
 import sys
 
+commands1 = ['-r', '-d']
+commands2 = ['-hc', '-sa']
+
+
+def error_message():       
+    print("Usage: SmartGrid.py <district number> <constructive algorithm> optional: <iterable algorithm> \n")
+    print("COMMAND LINE OPTIONS")
+    print("district number: 0, 1, 2, 3")
+    print(f"base algorithm: {commands1}")
+    print(f"top algorithm: {commands2}")
+    exit(1)
+
 
 if __name__ == "__main__":
    
     # check if input is valid
-    if len(sys.argv) != 2:
-        print("Usage: SmartGrid.py <district number>\n")
-        exit(1)
-    
+    if len(sys.argv) < 3 or len(sys.argv) > 4:
+        error_message()
+        
     # retrieve user input from command-line
     district_num = sys.argv[1]
+
+    # retrieve constructive algorithm
+    if len(sys.argv) == 3 or len(sys.argv) == 4:
+        constructive = sys.argv[2].lower()
+        if constructive not in commands1:
+            error_message()
+    else:
+        error_message()
+
+    # retrieve top algorithm
+    if len(sys.argv) == 4:
+        iterable = sys.argv[3]
+        if iterable not in commands2:
+            error_message()
+    else:
+        iterable = None
 
     # loading csv file to the program
     batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
     houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
-
-    # ------------ Place houses in batteries according to algorithms ------------
-
-    #------------------------- Depth first search -------------------------------
-    # depth = df.Depth_first(batteries, houses)
-    # batteries = depth.run()
-    # print("states:", depth.states_visted)
-
-
-    # -------- Update grid with batteries and houses that have cables ----------
-    # costs_shared = int(depth.lowest_cost)
+    
+    # initialize the grid
     grid = Grid(batteries, houses, int(district_num))
+
+    # --------------- Run either of the two constructive base algorithms --------------
     
+    #                                   1.
+    # --------------------------- Random reassignment ---------------------------
 
-    # --------------------------- Random reassignment --------------------------
-    # for i in range(15):
-    # batteries = randomize.valid_random_assignment(batteries, houses)
-    
-    random = rand.Random(grid)
-    grid_new = random.run()
+    # start random algorithm
+    if constructive == '-r':
+      random = rand.Random(grid)
+      grid = random.run()
+      
+    #                                   2.
+    #------------------------- Depth first search -------------------------------
 
-    total_houses_sum = 0
-    for battery in grid_new.batteries:
-        print(battery.total_output_houses)
-        total_houses = len(battery.houses)
-        # print(total_houses)
-        total_houses_sum += total_houses
-    print(f"Total houses in batteries is {total_houses_sum}")
+    # start depth first search algorithm
+    else:
 
-    grid_new.batteries, costs_shared = place_cables(grid_new.batteries, grid_new)      
-    
+        # initialize the depth first object
+        depth = df.Depth_first(grid)
 
-    print(grid_new.total_costs())
-    # print(grid.batteries)
+        # run the the depth algortithm
+        grid = depth.run()
+
+        # place the cables from the houses to their batteries
+        costs_shared = place_cables(grid.batteries, grid)[1]
+
+
+    # ---------------- Run either of the two iterable algorithms ----------------
 
     # ------------------------------- Hill Climber ------------------------------
-    # climber = hc.HillClimber(grid)
-    # climber.run(2000)
-    
+
+    # start hill climber algorithm
+    if iterable == '-hc':
+        print("Starting Hill Climber")
+
+        # sets the total amount of iterations for running th algorithm
+        HillClimber_iterations = 500
+
+        # initialize hill climber algorithm 
+        hillclimber = hc.HillClimber(grid)
+
+        # run the algorithm
+        grid = hillclimber.run(HillClimber_iterations)
+
     # --------------------------- Simmulated Annealing --------------------------
-    # print("Starting Simmulated Annealing")
-    # siman = sa.SimulatedAnnealing(grid, 40)
-    # siman.run(10000)
 
-    # costs_shared2 = grid.total_costs()
+    # start simulated annealing algorithm
+    elif iterable == '-sa':
+        print("Starting Simmulated Annealing")
 
-    # grid2 = Grid(batteries, costs_shared2, int(district_num))
+        # initialize Simulated Annealing algorithm
+        siman = sa.SimulatedAnnealing(grid, 40)
 
+        # run the algorithm
+        grid = siman.run(500)
+   
+    #--------------------- correct to right output format -----------------
+   
+    grid_output = correct_json(grid)
 
-
-    # # --------------------- correct to right output format ---------------------
-    grid_output = correct_json(grid_new)
-
-    # # ----------------------- Render output of grid ------------------------
-    # # 
+    #----------------------- Render output of grid ------------------------
+    
     output(grid_output)
 
     # # output score
-    # print(get_costs(grid))
+    print(grid.costs_shared)
 
     # visualize output
-    visualize(grid_new)
+    visualize(grid)
 
 

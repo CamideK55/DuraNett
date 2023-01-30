@@ -27,6 +27,8 @@ class HillClimber:
     def __init__(self, Grid):
         self.value = Grid.total_costs()
 
+        self.state_counter = 0
+
         # Kies een random start state
         self.grid = copy.deepcopy(Grid)
 
@@ -36,16 +38,19 @@ class HillClimber:
         house to a random battery. """
 
         # remove random house from its battery
-        house = new_grid.remove_random_house_from_batteries()
+        house = new_grid.remove_random_house_from_batteries(new_grid)
 
-        # Randomly 
+        # 
         battery = new_grid.batteries[random.choice(range(len(new_grid.batteries)))]
         
         # add house to the list of houses from the battery
         battery.houses.append(house)
 
         # place cables from the house to the battery in the house's cable list
-        house.placing_cable(battery)
+        house.placing_cable(battery, new_grid)
+
+        # add 1 to the state counter 
+        self.state_counter += 1
 
 
     def check_solution(self, new_grid):
@@ -83,3 +88,5 @@ class HillClimber:
 
             # Accept the mutation if its better
             self.check_solution(new_grid)
+    
+        return self.grid

@@ -50,4 +50,6 @@ class SimulatedAnnealing(HillClimber):
         
         self.update_temperature()
 
+        return self.grid
+
         
