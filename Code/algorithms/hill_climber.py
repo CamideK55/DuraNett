@@ -48,7 +48,7 @@ class HillClimber:
         new_value = new_grid.total_costs()
         current_value = self.value
 
-        print(f"new value = {new_value} and old value = {current_value}")
+        # print(f"new value = {new_value} and old value = {current_value}")
         
         # check if the new state has better results than the current state
         if new_value <= current_value:
@@ -66,9 +66,12 @@ class HillClimber:
 
         # loop for the amount of iterations 
         for iterations in range(iterations):
+
             
+
             # Creat a copy of the grid to simulate change
             new_grid = copy.deepcopy(self.grid)
+
 
             # Mutate the copy to get a different solution 
             self.mutate_grid(new_grid)
@@ -76,14 +79,19 @@ class HillClimber:
             # Accept the mutation if its better
             self.check_solution(new_grid)
 
+        return self.grid
+
 
     def swich_houses(self, new_grid):
 
         # get random houses
         house_1, battery_1 = new_grid.remove_random_house_from_batteries(new_grid)
+        # print(house_1.cables)
         house_2, battery_2 = new_grid.remove_random_house_from_batteries(new_grid)
 
+
         if not battery_1.battery_check(house_2) and not battery_2.battery_check(house_1):
+
 
             battery_1.houses.append(house_2)
             battery_1.total_output_houses += house_2.output
@@ -94,10 +102,12 @@ class HillClimber:
             battery_2.total_output_houses += house_1.output
             house_1.placed = True
             house_1.placing_cable(battery_2, new_grid)
+            # print(house_1.cables)
 
             return True
 
         else:
+
 
             # print("Switching houses failed")
             battery_1.houses.append(house_1)

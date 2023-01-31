@@ -36,17 +36,17 @@ class Depth_first:
         return self.optional_state.pop()
 
 
-    def create_children(self, batteries, house): 
-        # get all possibilities for a house
+    # def create_children(self, batteries, house): 
+    #     # get all possibilities for a house
 
-        #print("create child:",batteries,"house:",house)
-        for index, battery in enumerate(batteries):
-            #print("battery:",batteries[index])
-            if not batteries[index].battery_check(house):
-                new_batteries = copy.deepcopy(batteries)
-                new_batteries[index].houses.append(house)
-                print("child:",new_batteries)
-                self.optional_state.append(new_batteries)
+    #     #print("create child:",batteries,"house:",house)
+    #     for index, battery in enumerate(batteries):
+    #         print("battery:",batteries[index])
+    #         if not batteries[index].battery_check(house):
+    #             new_batteries = copy.deepcopy(batteries)
+    #             new_batteries[index].houses.append(house)
+    #             print("child:",new_batteries)
+    #             self.optional_state.append(new_batteries)
 
     
     # def check_solutions(self, new_batteries):
@@ -76,6 +76,7 @@ class Depth_first:
                         b.houses.append(houses[index])
                         b.total_output_houses += houses[house_index].output
                         return self.depth_first_recursive(batteries,houses,house_index+1)
+                        # b.houses.pop()
         
         
     def run(self):
@@ -83,6 +84,7 @@ class Depth_first:
         Runs the algorithm untill all possible states are visited.
         """
         self.depth_first_recursive(self.batteries, self.houses, 0)
+        print(self.states_visted)
         return self.grid
         
     # move to class as method

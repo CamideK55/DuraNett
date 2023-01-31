@@ -138,5 +138,5 @@ class Random:
         # for battery in self.grid.batteries:
         #     # x = battery.battery_capacity_overloaded()
         #     print(battery.total_output_houses)
-
+       
         return self.grid

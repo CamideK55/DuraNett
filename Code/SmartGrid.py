@@ -59,6 +59,11 @@ if __name__ == "__main__":
     batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
     houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
     
+    # loading csv file to the scripts
+    # batteries: list = load(f"../../Data/district_{district_num}/district-{district_num}_batteries.csv")
+    # houses: list = load(f"../../Data/district_{district_num}/district-{district_num}_houses.csv")
+
+
     # initialize the grid
     grid = Grid(batteries, houses, int(district_num))
 
@@ -71,6 +76,7 @@ if __name__ == "__main__":
     if constructive == '-r':
       random = rand.Random(grid)
       grid = random.run()
+      print(random.state_counter)
       
     #                                   2.
     #------------------------- Depth first search -------------------------------
@@ -83,9 +89,10 @@ if __name__ == "__main__":
 
         # run the the depth algortithm
         grid = depth.run()
-
+        
         # place the cables from the houses to their batteries
         costs_shared = place_cables(grid.batteries, grid)[1]
+        print(costs_shared)
 
 
     # ---------------- Run either of the two iterable algorithms ----------------
@@ -126,7 +133,8 @@ if __name__ == "__main__":
     output(grid_output)
 
     # # output score
-    print(grid.costs_shared)
+    # print(grid.total_costs_II)
+    print(grid.total_costs())
 
     # visualize output
     visualize(grid)
