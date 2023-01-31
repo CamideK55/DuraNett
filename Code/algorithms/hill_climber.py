@@ -27,8 +27,6 @@ class HillClimber:
     def __init__(self, Grid):
         self.value = Grid.total_costs()
 
-        self.state_counter = 0
-
         # Kies een random start state
         self.grid = copy.deepcopy(Grid)
 
@@ -37,20 +35,9 @@ class HillClimber:
         """ Mutate the current grid by reassigning a random
         house to a random battery. """
 
-        # remove random house from its battery
-        house = new_grid.remove_random_house_from_batteries(new_grid)
-
-        # 
-        battery = new_grid.batteries[random.choice(range(len(new_grid.batteries)))]
-        
-        # add house to the list of houses from the battery
-        battery.houses.append(house)
-
-        # place cables from the house to the battery in the house's cable list
-        house.placing_cable(battery, new_grid)
-
-        # add 1 to the state counter 
-        self.state_counter += 1
+        # randomly switch two houses from their batteries
+        while not self.swich_houses(new_grid):
+            continue
 
 
     def check_solution(self, new_grid):
@@ -88,5 +75,39 @@ class HillClimber:
 
             # Accept the mutation if its better
             self.check_solution(new_grid)
-    
-        return self.grid
+
+
+    def swich_houses(self, new_grid):
+
+        # get random houses
+        house_1, battery_1 = new_grid.remove_random_house_from_batteries(new_grid)
+        house_2, battery_2 = new_grid.remove_random_house_from_batteries(new_grid)
+
+        if not battery_1.battery_check(house_2) and not battery_2.battery_check(house_1):
+
+            battery_1.houses.append(house_2)
+            battery_1.total_output_houses += house_2.output
+            house_2.placed = True
+            house_2.placing_cable(battery_1, new_grid)
+
+            battery_2.houses.append(house_1)
+            battery_2.total_output_houses += house_1.output
+            house_1.placed = True
+            house_1.placing_cable(battery_2, new_grid)
+
+            return True
+
+        else:
+
+            # print("Switching houses failed")
+            battery_1.houses.append(house_1)
+            battery_1.total_output_houses += house_1.output
+            house_1.placed = True
+            house_1.placing_cable(battery_1, new_grid)
+
+            battery_2.houses.append(house_2)
+            battery_2.total_output_houses += house_2.output
+            house_2.placed = True
+            house_2.placing_cable(battery_2, new_grid)
+
+            return False

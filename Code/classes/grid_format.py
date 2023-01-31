@@ -37,8 +37,10 @@ class Grid:
         index = random.choice(range(len(grid.batteries)))
         battery = grid.batteries[index]
         house = battery.houses[random.choice(range(len(battery.houses)))]
+        battery.total_output_houses -= house.output
+        house.placed = False
         house.empty_cables()
-        return house
+        return house, battery
     
     # def assign_house_to_random_battery(self, house):
     #     self.batteries
