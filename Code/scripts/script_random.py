@@ -10,10 +10,16 @@ n_runs = 0
 # print(os.path.abspath("../SmartGrid.py"))
 # DuraNett/code/SmartGrid.py
 
+header = ["district" , "iteration" , "score" ]
+
+# inspired by: https://www.pythontutorial.net/python-basics/python-write-csv-file/
+
 # runnen script voor 10 min
 while time.time() - start < 60:
     print(f"run: {n_runs}")
-    f = open("Data/results/results_random.csv", "a", newline='')
+    f = open("../../Data/results/results_random.csv", "a", newline='')
+    writer = csv.writer(f)
+    writer.writerow(header)
     subprocess.call(["timeout", "60", "python3", "../SmartGrid.py", "1", "-r"], stdout=f)
     # subprocess.check_output(["timeout", "60", "python3", "../SmartGrid.py", "1", "-r"])
     n_runs += 1
@@ -22,8 +28,8 @@ while time.time() - start < 60:
 
 
 # # saving the data output
-# # inspired by: https://www.pythontutorial.net/python-basics/python-write-csv-file/
-# header = ["district", "iteration", "score" ]
+# inspired by: https://www.pythontutorial.net/python-basics/python-write-csv-file/
+# 
 # data = []
 # with open("Data/results/results_random.csv", "a", newline='') as results_random:
 #     writer = csv.writer(results_random)

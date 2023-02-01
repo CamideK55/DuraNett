@@ -56,12 +56,12 @@ if __name__ == "__main__":
         iterable = None
 
     # loading csv file to the program
-    batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
-    houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
+    # batteries: list = load(f"../Data/district_{district_num}/district-{district_num}_batteries.csv")
+    # houses: list = load(f"../Data/district_{district_num}/district-{district_num}_houses.csv")
     
     # loading csv file to the scripts
-    # batteries: list = load(f"../../Data/district_{district_num}/district-{district_num}_batteries.csv")
-    # houses: list = load(f"../../Data/district_{district_num}/district-{district_num}_houses.csv")
+    batteries: list = load(f"../../Data/district_{district_num}/district-{district_num}_batteries.csv")
+    houses: list = load(f"../../Data/district_{district_num}/district-{district_num}_houses.csv")
 
 
     # initialize the grid

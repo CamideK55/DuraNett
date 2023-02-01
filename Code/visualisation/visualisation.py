@@ -43,7 +43,7 @@ def visualize(grid):
                 y_cables[index].append(cable.location[1])
                 
 
-    print("Start visualization")
+    # print("Start visualization")
     
     color = ['crimson', 'chartreuse', 'turquoise', 'maroon', 'mediumblue']
     
@@ -69,4 +69,4 @@ def visualize(grid):
     plt.savefig("results.png", bbox_inches='tight')
     plt.show()
     
-    print("Visualization done")
+    # print("Visualization done")
