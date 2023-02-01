@@ -8,6 +8,7 @@
 #  ***************************************************************************
 # inspired by Radio Russia: https://github.com/minprog/radio_russia_demo/blob/college_2/code/algorithms/depth_first.py
 
+from __future__ import annotations
 import copy
 from classes.house import House
 from classes.battery import Battery
@@ -51,10 +52,10 @@ class Depth_first:
                     if not self.done and not b.battery_check(houses[house_index]):
                         b.houses.append(houses[index])
                         b.total_output_houses += houses[house_index].output
-                        return self.depth_first_recursive(batteries,houses,house_index+1)
+                        return self.depth_first_recursive(batteries, houses, house_index + 1)
+    
         
-        
-    def run(self):
+    def run(self)  -> Grid:
         """
         Runs the algorithm untill all houses are placed, and the solution is found and valid.
         """

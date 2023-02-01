@@ -14,6 +14,12 @@ The validity requirements are:
 - All houses are connected to a house
 - None of the capacities of batteries is exceeded
 
+The state-space of our case is enormous, yet there aren't a lot of valid states within this state-space. 
+
+An old evaluation of one of our state-spaces (in Dutch):
+
+<img src="Images/StateSpace.jpeg" width=500>
+
 ## Getting started
 
 ### Requirements
@@ -24,25 +30,31 @@ This codebase is written in Python 3.9+. For our visualisation we used the matpl
 
 ### Usage
 
+The main.py file in our repo is called SmartGrid.py.
 To run our code the following usage key is used:
 
 > python3 SmartGrid.py \<district number\> \<constructive algorithm\> optional: \<iterable algoritm\>
+
+The commandline will show: \<distrct number\>, \<number of states visited\>, \<total costs of the grid\>
+
+After running, a JSON file and PNG will be created in the /data directory. The JSON file displays a text-based version of our output, and the PNG visualises this output into a matplotlib scatterplot.
+
+If you want to run the scripts, you need to to change the sys.path in which the JSON and PNG file are saved. You also need to use the other csv-loading script. 
 
 ### Structure
 
 The following list describes the way our codebase is structured:
 
 - /code
-    - /code/algorithms: contains the code of our four algorithms
-    - /code/classen: contains the code of our 
-    - /code/future_work
-    - /code/scripts
-    - /code/visualisation
-    - output.json
-    - results.png
-    - SmartGrid.py
-- /data
-- /images
+    - /code/algorithms: contains the code of the four algorithms
+    - /code/classen: contains the code of the four classes
+    - /code/future_work: contains code that was not finished in time, but can be important for future work
+    - /code/scripts: contains the code for the scripts that were used in the experiments
+    - /code/visualisation: contains the code for our visualisation
+    - functions.py: collection of commonly used functions
+    - SmartGrid.py: the main python file
+- /data: contains the data that is used in our case and the results that are created
+- /images: contains the images used in this README and the ones we used in our presentation 
 - README.md
 
 ## Algorithms
@@ -58,15 +70,14 @@ The depth-first search algorihm takes the batteries and houses. Afterwards, it p
  
 ### Hill Climber 
 
+The Hill climber algorithm uses the output of either the Random or Depht-first algorithm. The algorithm changes the the state incrementaly, by switching two houses of two batteries. As the houses are being switched, new cables are set which results in different costs. If this results in a lower cost than before, the state is remembered and put through a new itteration.  The algorithm repeats this for a given number of iterations, in our case we use 500. This can be changed if needed. An issue with Hill Climber algorithms is that they can end up in local minima.
+
 ### Simulated Annealing
+
+The Simulated Annealing algorithm uses the results of the Hill Climber, and tries to break out of the local minimum that it got stuck in. It does so by accepting states with higher costs. It uses a probabilty that increases when iterations increase. If a random float is lower than the calculated probability, the state is accepted.  It then checks if a new minimal costs has been found and repeats.
 
 ## Authors
 
 - Joey Bink
 - Jasper Claessen
 - Camiel de Kom
-
-
-<img src="Images/StateSpace.jpeg" width=500>
-
-State Space

@@ -4,11 +4,11 @@
 #  * Algoritmen & Heuristieken
 #  * DuraNett: Joey Bink, Jasper Claessen & Camiel de Kom
 #  *
-#  *   ----
+#  * Program that constructs a grid, connecting houses and batteries through cables
 #  ***************************************************************************
 
 from classes.grid_format import Grid
-from functions import load, output, house_into_batteries, run_random, place_cables, get_costs, correct_json
+from functions import load, output, place_cables, correct_json, error_message
 from visualisation.visualisation import visualize
 from algorithms import depth_first as df
 from algorithms import hill_climber as hc
@@ -20,23 +20,11 @@ commands1 = ['-r', '-d']
 commands2 = ['-hc', '-sa']
 
 
-def error_message():
-    """
-    Error message in case of incorrect user input.
-    """       
-    print("Usage: SmartGrid.py <district number> <constructive algorithm> optional: <iterable algorithm> \n")
-    print("COMMAND LINE OPTIONS")
-    print("district number: 0, 1, 2, 3")
-    print(f"base algorithm: {commands1}")
-    print(f"top algorithm: {commands2}")
-    exit(1)
-
-
 if __name__ == "__main__":
    
     # check if input is valid
     if len(sys.argv) < 3 or len(sys.argv) > 4:
-        error_message()
+        error_message(commands1, commands2)
         
     # retrieve user input from command-line
     district_num = sys.argv[1]
@@ -46,15 +34,15 @@ if __name__ == "__main__":
     if len(sys.argv) == 3 or len(sys.argv) == 4:
         constructive = sys.argv[2].lower()
         if constructive not in commands1:
-            error_message()
+            error_message(commands1, commands2)
     else:
-        error_message()
+        error_message(commands1, commands2)
 
     # retrieve top algorithm
     if len(sys.argv) == 4:
         iterable = sys.argv[3]
         if iterable not in commands2:
-            error_message()
+            error_message(commands1, commands2)
     else:
         iterable = None
 

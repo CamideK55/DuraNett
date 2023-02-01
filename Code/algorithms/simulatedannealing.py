@@ -55,7 +55,7 @@ class SimulatedAnnealing(HillClimber):
         # to use for the accaptance probability.
         delta = old_value - new_value
 
-        # accaptance probability is a exponential formula used to break out 
+        # acceptance probability is a exponential formula used to break out 
         # of local minima
         acceptance_probability = math.exp(delta / self.Temp)
 

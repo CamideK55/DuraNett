@@ -15,7 +15,6 @@ from classes.cable import Cable
 from algorithms import random as rand
 import json
 import matplotlib as mpl
-# import jsonpickle
 
 
 def load(filename: str):
@@ -25,10 +24,10 @@ def load(filename: str):
     """
     with open(filename) as f:
         list = []
-
         line_counter = 0
         unique_id = 1
 
+        # read lines in file
         while True:
             line = f.readline().replace('\"', '').strip()
 
@@ -38,11 +37,13 @@ def load(filename: str):
                 line_counter += 1
                 continue
 
+            # take coordinates and capacity/output
             line_list = line.split(',')
             x = int(line_list[0])
             y = int(line_list[1])
             capacity_output = float(line_list[2])
 
+            # make house and battery objects and place them into appropriate list
             if "batteries" in filename:
                 battery = Battery(x, y, capacity_output, unique_id)
                 list.append(battery)
@@ -61,17 +62,8 @@ def load(filename: str):
 def output(grid):
     """Convert to JSON file"""
     # grid.toJSON()
-    with open("output.json", "w") as output_file:
+    with open("../Data/JSON_output/output.json", "w") as output_file:
             return json.dump(grid, output_file, indent= 4, default=vars)
-
-
-def house_into_batteries(batteries: list, houses: list):
-    for battery in range(len(batteries)):
-        for index, house in enumerate(houses):
-            if index == 5:
-                break
-            batteries[battery].houses.append(house.house_dict)
-    return batteries
 
 
 def place_cables(batteries, grid):
@@ -80,15 +72,12 @@ def place_cables(batteries, grid):
     assigned by a algorithm.
     """
     costs_shared = 0
-    for battery in batteries:
-        # location_battery = list(battery.location)
-        # cable_list = []
+    for battery in batteries:        
         costs_shared += 5000
 
         for house in battery.houses:
             cable_costs = house.placing_cable(battery)
             costs_shared += cable_costs
-            # cable_list.append(Cable(location_battery[0], location_battery[1]))
     return batteries, costs_shared
 
 
@@ -108,14 +97,6 @@ def correct_json(grid):
     ]
 
     return grid_list
-
-    # List[dict{"district",
-    # "costs-shared"},
-    #  dict{"location",
-    # "capacity",
-    # "houses":[{"location",
-    #     "output",
-    #     "cables"[]]}}]
 
 
 def battery_dict(batteries):
@@ -157,31 +138,17 @@ def batteries_capacity_check(batteries: list):
             return False
     return True
 
-
-# def same_cable(grid, cable):
-#     if cable.location in grid.all_cables:
-#         return True
-#     else:
-#         return False
-        
-        
-def is_solution():
-    pass
-
-
-def get_violations():
-    pass
-
-
-def get_costs(grid):
+def get_costs(grid) -> int:
     return grid.costs_shared
 
 
-def run_random(iterations, grid):
-
-    for iteration in range(iterations):
-
-        random = rand.Random(grid)
-        random.run
-
-        random.check_solution(grid)
+def error_message(commands1, commands2):
+    """
+    Error message in case of incorrect user input.
+    """       
+    print("Usage: SmartGrid.py <district number> <constructive algorithm> optional: <iterable algorithm> \n")
+    print("COMMAND LINE OPTIONS")
+    print("district number: 0, 1, 2, 3")
+    print(f"base algorithm: {commands1}")
+    print(f"top algorithm: {commands2}")
+    exit(1)
