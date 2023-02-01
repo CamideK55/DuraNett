@@ -27,8 +27,11 @@ class HillClimber:
     def __init__(self, Grid):
         self.value = Grid.total_costs()
 
-        # Kies een random start state
+        # creat a copy of the grid to work with in this class
         self.grid = copy.deepcopy(Grid)
+
+        # initialize the state counter
+        self.states_counter = 0
 
 
     def mutate_grid(self, new_grid):
@@ -38,6 +41,8 @@ class HillClimber:
         # randomly switch two houses from their batteries
         while not self.swich_houses(new_grid):
             continue
+
+        self.states_counter += 1
 
 
     def check_solution(self, new_grid):
@@ -59,7 +64,7 @@ class HillClimber:
 
 
     def run(self, iterations):
-        """ Runs the HillClimber algorithm for a user defined amount of iterations. """
+        """ Runs the HillClimber algorithm for a user defined amount of iterations."""
         
         # initialize iteratons
         self.iterations = iterations
@@ -67,11 +72,8 @@ class HillClimber:
         # loop for the amount of iterations 
         for iterations in range(iterations):
 
-            
-
             # Creat a copy of the grid to simulate change
             new_grid = copy.deepcopy(self.grid)
-
 
             # Mutate the copy to get a different solution 
             self.mutate_grid(new_grid)
@@ -83,41 +85,42 @@ class HillClimber:
 
 
     def swich_houses(self, new_grid):
+        """ This method randomly choses two houses from two randomly chosen batteries. 
+        It than switch the houses and places them by the other battery if these houses
+        fit. When the houses do not fit they will be sat back to their original battery.
+        """
 
-        # get random houses
+        # get two random houses and their corresponding batteries
         house_1, battery_1 = new_grid.remove_random_house_from_batteries(new_grid)
-        # print(house_1.cables)
         house_2, battery_2 = new_grid.remove_random_house_from_batteries(new_grid)
 
-
+        # check if the the houses fit into the other battery
         if not battery_1.battery_check(house_2) and not battery_2.battery_check(house_1):
 
-
+            # place the houses into their new batteries
             battery_1.houses.append(house_2)
             battery_1.total_output_houses += house_2.output
             house_2.placed = True
-            house_2.placing_cable(battery_1, new_grid)
+            house_2.placing_cable(battery_1)
 
             battery_2.houses.append(house_1)
             battery_2.total_output_houses += house_1.output
             house_1.placed = True
-            house_1.placing_cable(battery_2, new_grid)
-            # print(house_1.cables)
+            house_1.placing_cable(battery_2)
 
             return True
 
         else:
 
-
-            # print("Switching houses failed")
+            # place the houses back to their original battery 
             battery_1.houses.append(house_1)
             battery_1.total_output_houses += house_1.output
             house_1.placed = True
-            house_1.placing_cable(battery_1, new_grid)
+            house_1.placing_cable(battery_1)
 
             battery_2.houses.append(house_2)
             battery_2.total_output_houses += house_2.output
             house_2.placed = True
-            house_2.placing_cable(battery_2, new_grid)
+            house_2.placing_cable(battery_2)
 
             return False

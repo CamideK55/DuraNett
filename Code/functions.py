@@ -19,6 +19,10 @@ import matplotlib as mpl
 
 
 def load(filename: str):
+    """
+    Loads the data from the csv files. Creates either House objects or Battery
+    Objects, based on the filename.
+    """
     with open(filename) as f:
         list = []
 
@@ -71,6 +75,10 @@ def house_into_batteries(batteries: list, houses: list):
 
 
 def place_cables(batteries, grid):
+    """
+    Places the cables between the batteries and houses, after they have been
+    assigned by a algorithm.
+    """
     costs_shared = 0
     for battery in batteries:
         # location_battery = list(battery.location)
@@ -78,13 +86,17 @@ def place_cables(batteries, grid):
         costs_shared += 5000
 
         for house in battery.houses:
-            cable_costs = house.placing_cable(battery, grid)
+            cable_costs = house.placing_cable(battery)
             costs_shared += cable_costs
             # cable_list.append(Cable(location_battery[0], location_battery[1]))
     return batteries, costs_shared
 
 
-def correct_json(grid): 
+def correct_json(grid):
+    """
+    Creates the list with dicts in which the output is given. This list is 
+    eventually converted to a JSON-file.
+    """
     grid_dict = {
         "district": grid.district_num,
         "costs-shared": grid.total_costs() 
@@ -107,6 +119,9 @@ def correct_json(grid):
 
 
 def battery_dict(batteries):
+    """
+    Part/continuation of the correct_json function.
+    """
     battery_list = []
     for battery in batteries:
         battery_dict = {
@@ -119,6 +134,9 @@ def battery_dict(batteries):
 
 
 def house_dict(houses):
+    """
+    Part/continuation of the correct_json function.
+    """
     house_list = []
     for house in houses:
         house_dict = {
@@ -130,6 +148,10 @@ def house_dict(houses):
     return house_list
 
 def batteries_capacity_check(batteries: list):
+    """
+    Checks if any of the batteries is overloaded, and returns True if this is
+    not the case
+    """
     for battery in batteries:
         if battery.battery_capacity_overloaded():
             return False
